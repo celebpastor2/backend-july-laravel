@@ -83,3 +83,12 @@
     .login-container .links a:hover {
       text-decoration: underline;
     }
+
+    .error {
+      display:block;
+      max-width: fit-content;
+      border: 1px solid red;
+      background-color: #ffffff;
+      color:red;
+      padding:5px;
+    }

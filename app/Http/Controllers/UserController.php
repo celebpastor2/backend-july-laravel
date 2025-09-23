@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,10 +19,10 @@ class UserController extends Controller
        }
 
        //process the login request with the remain code
-       $user = User::where('email', $username)->first();
+       $user = User::where('email', $username)->first();//null
 
        if( ! $user ){
-        return json_encode([
+        return back()->withErrors([
             "message"   => "User not exist",
             "success"   => false
         ]);
@@ -40,19 +41,36 @@ class UserController extends Controller
             return view("register");
        }
 
-       $name = $request->all('name');
-       $username = $request->all('username');
-       $email = $request->all('email');
-       $password = $request->all('password');
-
+       $name = $request->post('name');
+       $username = $request->post('username');
+       $email = $request->post('email');
+       $password = $request->post('password');
        #CRUD
        $user = User::create([
              'name' => $name,
             'email' => $email,
-            'password' => Hash::make($password),
+            'password' => password_hash($password, PASSWORD_DEFAULT),//password_hash($password, PASSWORD_HASH)
             'username' => $username
        ]);
 
        auth()->login($user);
+
+    }
+
+    public function loadShop(Request $request){
+          $user = $request->user();
+
+          if( ! $user ){
+               return redirect("https://google.com");
+          }
+          $user = auth()->user();
+          $shop = $user->shop();
+          $products = $shop->products();
+          $orders = array_map();
+
+          return view("shop", [
+               "shop"    => $shop,
+               "products"     => $products
+          ]);
     }
 }

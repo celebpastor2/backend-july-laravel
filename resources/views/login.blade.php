@@ -1,6 +1,11 @@
 @extends("layout/login")
 @section("form")
  <div class="input-group">
+        @if( $errors->any())
+        @foreach($errors->all() as $error)
+        <span class="error">{{ $error }}</span>
+        @endforeach
+        @endif
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required>
       </div>

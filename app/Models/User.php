@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Shop;
+use App\Models\Product;
 
 class User extends Authenticatable
 {
@@ -46,4 +48,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function shop(){
+       return $this->hasOne(Shop::class); 
+    }
+
+    public function products(){
+        return $this->hasManyThrough(Product::class, Shop::class);
+    }
 }
+
+/**
+ * $user = User::find(1);
+ * $user->products;
+ */

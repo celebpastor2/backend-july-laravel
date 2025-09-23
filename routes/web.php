@@ -14,10 +14,11 @@ Route::get('/front', function(){
 
 Route::post("/submit-login", [UserController::class, "login"]);
 Route::post("/submit-register", [UserController::class, "register"]);
-Route::get("/login", [UserController::class, "login"]);
+Route::get("/login", [UserController::class, "login"])->name("login");
 Route::get("/register", [UserController::class, "register"]);
 Route::get("/dashboard", [UserController::class, "dashboard"])->name("dashboard");
-
+Route::get("/shop", [UserController::class, "loadShop"]);
+#//https://laravel.com/shop
 #A Model is class used to control a particular data structure
 #a Model has direct relationship with data from your database
 #Model View Controller kid of Framework (MVC)

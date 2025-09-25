@@ -21,8 +21,7 @@ return new class extends Migration
             $table->boolean("is_verified")->default(0);
             $table->tinyInteger("shop_rank")->default(0);
             $table->decimal("balance", 12, 2)->default(0.00);
-            $table->enum("status", ["live", "pending", "rejected"])->default("pending");
-                
+            $table->enum("status", ["live", "pending", "rejected"])->default("pending");                         
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');#You are giving blade engine of Laravel the power to parse the response to the client
@@ -13,9 +14,11 @@ Route::get('/front', function(){
 });
 
 Route::post("/submit-login", [UserController::class, "login"]);
+Route::post("/product", [productController::class, "create"])->name('create_product');
 Route::post("/submit-register", [UserController::class, "register"]);
 Route::get("/login", [UserController::class, "login"])->name("login");
 Route::get("/register", [UserController::class, "register"]);
+Route::get("/create-product", [ProductController::class, "product"]);
 Route::get("/dashboard", [UserController::class, "dashboard"])->name("dashboard");
 Route::get("/shop", [UserController::class, "loadShop"]);
 #//https://laravel.com/shop

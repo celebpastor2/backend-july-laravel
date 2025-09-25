@@ -7,6 +7,9 @@ use App\Models\Products;
 
 class Tag extends Model
 {
+    protected $fillable = [
+        'name',
+    ];
     //
     public function products(){
         return $this->belongsTo(Product::class);

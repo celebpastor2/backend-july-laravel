@@ -52,6 +52,7 @@ class UserController extends Controller
             'password' => password_hash($password, PASSWORD_DEFAULT),//password_hash($password, PASSWORD_HASH)
             'username' => $username
        ]);
+       $id = $user->id;
 
        auth()->login($user);
 
@@ -61,13 +62,13 @@ class UserController extends Controller
           $user = $request->user();
 
           if( ! $user ){
-               return redirect("https://google.com");
+               return redirect()->route("login");
           }
           $user = auth()->user();
           $shop = $user->shop();
           $products = $shop->products();
           $orders = array_map();
-
+          
           return view("shop", [
                "shop"    => $shop,
                "products"     => $products

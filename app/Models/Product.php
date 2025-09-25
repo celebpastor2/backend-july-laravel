@@ -8,6 +8,11 @@ use App\Models\Tag;
 
 class Product extends Model
 {
+     protected $fillable = [
+        'name',
+        'description',
+        'price'
+    ];
     //products
     protected $table = "products";
     protected $primaryKey = "id";

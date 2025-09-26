@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\UserAuthentication;
+use App\Http\Middleware\ProductMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        $middleware->alias([
+            'user'  => UserAuthentication::class,
+            'product'   => ProductMiddleware::class
+        ]);//all request
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

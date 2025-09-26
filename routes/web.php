@@ -13,14 +13,19 @@ Route::get('/front', function(){
     return view("front");
 });
 
+Route::middleware("user")->group(function(){
+    Route::get("/create-product", [ProductController::class, "product"]);
+    Route::get("/user-shop", [UserController::class, "loadShop"]);
+    Route::get("/dashboard", [UserController::class, "dashboard"])->name("dashboard");
+    Route::post("/product", [productController::class, "create"])->name('create_product');
+});
+
 Route::post("/submit-login", [UserController::class, "login"]);
-Route::post("/product", [productController::class, "create"])->name('create_product');
+Route::get("/shop", [ProductController::class, 'shop'])->name("shop");
 Route::post("/submit-register", [UserController::class, "register"]);
 Route::get("/login", [UserController::class, "login"])->name("login");
 Route::get("/register", [UserController::class, "register"]);
-Route::get("/create-product", [ProductController::class, "product"]);
-Route::get("/dashboard", [UserController::class, "dashboard"])->name("dashboard");
-Route::get("/shop", [UserController::class, "loadShop"]);
+Route::get("/product/{id}", [ProductController::class, "single_product"])->middleware('product');
 #//https://laravel.com/shop
 #A Model is class used to control a particular data structure
 #a Model has direct relationship with data from your database
